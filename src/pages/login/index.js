@@ -8,22 +8,8 @@ const Login = () => {
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
 
-  const handleLogin = async () => {
-    if (!email || !senha) {
-      setErro("Informe usuário e senha.");
-      return;
-    }
-    try {
-      if (email === 'exemplo@gmail.com' && senha === '1234') {
-        return;
-      } else {
-        setErro("Usuário ou senha invádio");
-      }
-    } catch (err) {
-      setErro("Erro ao fazer login. Tente novamente.");
-    }
-  };
-  
+  console.log("email", email);
+
   return (
     <S.Container>
       <S.Content>
@@ -46,13 +32,8 @@ const Login = () => {
             setErro("");
           }}
         />
-
-        {erro && <S.LabelError>{erro}</S.LabelError>}
-
-        <S.ButtonGroup>
-          <Button onClick={handleLogin} texto="Entrar" color="#0d6efd"></Button>
-          <Button texto="Cadastrar" color="#666"></Button>
-        </S.ButtonGroup>
+        <Button onClick={""} texto="Entrar" color="#0d6efd"></Button>
+        <Button texto="Cadastrar" color="#666"></Button>
       </S.Content>
     </S.Container>
   );

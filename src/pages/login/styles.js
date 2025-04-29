@@ -40,18 +40,3 @@ export const Label = styled.label`
   flex-direction: column;
 `;
 
-export const LabelError = styled.label`
-  font-size: 18px;
-  color: red;
-  background-color: #fff;
-  padding: 10px;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-export const ButtonGroup = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-`;
