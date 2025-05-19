@@ -8,6 +8,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
+  const navigate =  useNavigate();
 
 
   const handleLogin = () => {
@@ -69,7 +70,7 @@ const Login = () => {
         {erro && <S.LabelError>{erro}</S.LabelError>}
         <S.ButtonGroup>
           <Button onClick={handleLogin} texto="Entrar" color="#0d6efd" />
-          <Button texto="Cadastrar" color="#666" />
+          <Button texto="Cadastrar" color="#666" onClick={() => navigate('/cadastrar/')}/>
         </S.ButtonGroup>
       </S.Content>
     </S.Container>
