@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import * as S from "./styles";
 import Button from "../../components/button";
 import Input from "../../components/input";
@@ -18,22 +17,28 @@ const Login = () => {
     }
 
     try {
+      // criaao do objeto 
       const payload = {
         email: "exemplo@gmail.com",
         senha: "1234",
       };
 
-      // Salvar no localStorage (simulando cadastro)
+      // Converte o objeto JSON para string e aalva no localStorage (simulando cadastro)
       localStorage.setItem("usuario", JSON.stringify(payload));
 
       // Ler do localStorage
       const localStorageUsuario = localStorage.getItem("usuario");
+
+      // verificaao do objeto - essa linha pergunta se o objeto é vazia, caso seja quero dizer que nao existe usuário na base.
       if (!localStorageUsuario) {
         setErro("Nenhum usuário encontrado.");
         return;
       }
+
+      // essa linha converte string para JSON
       const usuario = JSON.parse(localStorageUsuario);
 
+      // compara usuario logado com os ususários da base
       if (usuario.email === email && usuario.senha === senha) {
         alert("Login realizado com sucesso!");
         navigate('/home/');
