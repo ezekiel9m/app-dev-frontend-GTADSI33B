@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import * as S from "./styles";
 import Button from "../../components/button";
 import Input from "../../components/input";
+import { useNavigate} from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
+  const navigate = useNavigate();
 
 
   const handleLogin = () => {
@@ -40,6 +42,7 @@ const Login = () => {
       // compara usuario logado com os ususários da base
       if (usuario.email === email && usuario.senha === senha) {
         alert("Login realizado com sucesso!");
+        navigate('/home/');
 
       } else {
         setErro("Usuário ou senha inválido");
@@ -74,7 +77,7 @@ const Login = () => {
         {erro && <S.LabelError>{erro}</S.LabelError>}
         <S.ButtonGroup>
           <Button onClick={handleLogin} texto="Entrar" color="#0d6efd" />
-          <Button texto="Cadastrar" color="#666" />
+          <Button texto="Cadastrar" color="#666" on/>
         </S.ButtonGroup>
       </S.Content>
     </S.Container>
