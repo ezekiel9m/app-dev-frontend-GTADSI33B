@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import * as S from "./styles";
+import { useNavigate } from "react-router-dom";
 import Button from "../../components/button";
 import Input from "../../components/input";
 
@@ -8,35 +8,34 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
-  const navigate =  useNavigate();
-
+  const navigate = useNavigate();
 
   const handleLogin = () => {
     if (!email || !senha) {
-      alert("Informe o email e a senha.");
+      alert("Infrome email e senha.");
       return;
     }
-
     try {
-      const payload = {
-        email: "exemplo@gmail.com",
-        senha: "1234",
-      };
+      // ler os dados do banco de dados
+      const localStorageUsuario = localStorage.getItem("dadosUsuarios");
 
-      // Salvar no localStorage (simulando cadastro)
-      localStorage.setItem("usuario", JSON.stringify(payload));
-
-      // Ler do localStorage
-      const localStorageUsuario = localStorage.getItem("usuario");
+      // verificaao do objeto - essa linha pergunta se o objeto é vazia, caso seja quero dizer que nao existe usuário na base.
       if (!localStorageUsuario) {
         setErro("Nenhum usuário encontrado.");
         return;
       }
-      const usuario = JSON.parse(localStorageUsuario);
 
-      if (usuario.email === email && usuario.senha === senha) {
+      // converter os dados para JSON
+      const usuarios = JSON.parse(localStorageUsuario);
+
+      // Procura o usuário com email e senha correspondentes
+      const usuarioEncontrado = usuarios.find(function(usuario) {
+          return usuario.email === email && usuario.senha === senha;
+      });
+
+      if (usuarioEncontrado) {
         alert("Login realizado com sucesso!");
-
+        navigate('/home/');
       } else {
         setErro("Usuário ou senha inválido");
       }
@@ -55,7 +54,6 @@ const Login = () => {
           value={email}
           onChange={(e) => {
             setEmail(e.target.value);
-            setErro("");
           }}
         />
         <Input
@@ -64,13 +62,16 @@ const Login = () => {
           value={senha}
           onChange={(e) => {
             setSenha(e.target.value);
-            setErro("");
           }}
         />
         {erro && <S.LabelError>{erro}</S.LabelError>}
         <S.ButtonGroup>
-          <Button onClick={handleLogin} texto="Entrar" color="#0d6efd" />
-          <Button texto="Cadastrar" color="#666" onClick={() => navigate('/cadastrar/')}/>
+          <Button onClick={handleLogin} text="Entrar" color="#0d6efd"></Button>
+          <Button
+            text="Cadastrar"
+            color="#666"
+            onClick={() => navigate("/cadastrar/")}
+          ></Button>
         </S.ButtonGroup>
       </S.Content>
     </S.Container>

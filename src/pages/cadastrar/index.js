@@ -19,15 +19,29 @@ const Cadastrar = () => {
 
   const handleSave = async () => {
     try {
-      if (dados) {
-        localStorage.setItem("usuarios", JSON.stringify(dados));
-        alert("Cadastro realizado com sucesso!");
-        navigate("/login/");
-      } else {
-        return;
-      }
+      if (!dados) return;
+
+      // Busca a lista de usuários no localStorage
+      const localStorageUsuario = localStorage.getItem("dadosUsuarios");
+
+      // Converte a string JSON em array ou inicializa como array vazio
+      const dadosUsuarios = localStorageUsuario
+        ? JSON.parse(localStorageUsuario)
+        : [];
+
+      // Adiciona novo usuário na lista
+      dadosUsuarios.push(dados);
+
+      // Salva todos os usuários no localStorage
+      localStorage.setItem("dadosUsuarios", JSON.stringify(dadosUsuarios));
+
+      // Exibe alerta de sucesso
+      alert("Cadastro realizado com sucesso!");
+
+      // Redireciona para a tela de login
+      navigate("/login/");
     } catch (err) {
-      console.log(err);
+      console.error("Erro ao salvar dados:", err);
     }
   };
 
@@ -68,11 +82,7 @@ const Cadastrar = () => {
         />
 
         <S.ButtonGroup>
-          <Button
-            onClick={''}
-            text="Limpar"
-            color="#888"
-          />
+          <Button onClick={""} text="Limpar" color="#888" />
           <Button onClick={handleSave} text="Salvar" color="#198754" />
         </S.ButtonGroup>
       </S.Content>
